@@ -14,6 +14,7 @@
 - The result is stored on the Result backend (Redis or DB) if configured
 - For scheduled tasks, Celery beat periodically sends tasks to the broker 
 
+
 # How to run this project
 - run all service: docker compose up -d --build
 - check all container is up: docker ps
@@ -27,3 +28,17 @@
 ```
 - copy the task id from post response, then send a get request to check the detail
 - the result should be same with the log
+- the data also saved to the sqlite DB
+
+# Check data inside redis
+- go inside redis container: docker exec -it celery-redis-1
+- switch to db 0: select 0
+- check the keys: keys *
+- check value of the keys: get {keys}
+note: data inside redis is temporary and by default celery set it to expires in 1 day
+
+# Check data inside sqlite
+- open the db: sqlite3 data/tasks.db
+- check table: .table
+- check schema: .schema
+- check the data: select * from tasks;

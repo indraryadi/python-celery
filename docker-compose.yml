@@ -37,6 +37,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      - ./data:/app/data
   
   api:
     build: .
@@ -49,6 +51,8 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    volumes:
+      - ./data:/app/data
 
 volumes:
   rabbitmq_data:
